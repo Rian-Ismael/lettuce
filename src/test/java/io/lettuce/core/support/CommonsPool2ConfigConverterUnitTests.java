@@ -26,7 +26,7 @@ class CommonsPool2ConfigConverterUnitTests {
     private static final int MAX_TOTAL_EXPECTED = 13;
 
     @Test
-    void shouldAdaptConfiguration() {
+    void shouldAdaptConfigurationModified() {
         GenericObjectPoolConfig<String> config = new GenericObjectPoolConfig<>();
         config.setMinIdle(MIN_IDLE_EXPECTED);
         config.setMaxIdle(MAX_IDLE_EXPECTED);
