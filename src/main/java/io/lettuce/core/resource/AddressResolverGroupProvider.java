@@ -20,9 +20,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
  * @author Mark Paluch
  * @since 6.1
  */
-class AddressResolverGroupProvider {
-
-    private static final InternalLogger logger = InternalLoggerFactory.getInstance(AddressResolverGroupProvider.class);
+class AddressResolverGroupProvider extends EAddressResolverGroupProvider {
 
     private static final AddressResolverGroup<?> ADDRESS_RESOLVER_GROUP;
 
