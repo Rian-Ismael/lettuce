@@ -90,8 +90,8 @@
         <developerConnection>scm:git:https://github.com/redis/lettuce.git
         </developerConnection>
         <url>https://github.com/redis/lettuce</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <snapshotRepository>
@@ -247,11 +247,10 @@
 
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-tcnative</artifactId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
             <version>2.0.65.Final</version>
-            <classifier>${os.detected.classifier}</classifier>
-            <optional>true</optional>
         </dependency>
+
 
         <dependency>
             <groupId>io.netty</groupId>
@@ -895,12 +894,12 @@
                         <io.netty.eventLoopThreads>4</io.netty.eventLoopThreads>
                     </systemPropertyVariables>
                     <includes>
-                        <include>**/*UnitTests</include>
-                        <include>**/*Tests</include>
+                        <include>/*UnitTests</include>
+                        <include>/*Tests</include>
                     </includes>
                     <excludes>
-                        <exclude>**/*Test</exclude>
-                        <exclude>**/*IntegrationTests</exclude>
+                        <exclude>/*Test</exclude>
+                        <exclude>/*IntegrationTests</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -935,11 +934,11 @@
                         <io.netty.eventLoopThreads>4</io.netty.eventLoopThreads>
                     </systemPropertyVariables>
                     <includes>
-                        <include>**/*IntegrationTests</include>
-                        <include>**/*Test</include>
+                        <include>/*IntegrationTests</include>
+                        <include>/*Test</include>
                     </includes>
                     <excludes>
-                        <exclude>**/*UnitTests</exclude>
+                        <exclude>/*UnitTests</exclude>
                     </excludes>
                 </configuration>
 
@@ -1004,7 +1003,7 @@
 
                 <configuration>
                     <excludes>
-                        <exclude>**/Jfr*</exclude>
+                        <exclude>/Jfr*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -1049,7 +1048,7 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                           <skipTests>true</skipTests>
+                            <skipTests>true</skipTests>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -1058,7 +1057,7 @@
                             <groups>entraid</groups>
                             <skipITs>false</skipITs>
                             <includes>
-                                <include>**/*IntegrationTests</include>
+                                <include>/*IntegrationTests</include>
                             </includes>
                         </configuration>
                         <executions>
@@ -1407,8 +1406,8 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <includes>
-                                <include>**/examples/reactive/*Example.java</include>
-                                <include>**/examples/async/*Example.java</include>
+                                <include>/examples/reactive/*Example.java</include>
+                                <include>/examples/async/*Example.java</include>
                             </includes>
                             <failIfNoTests>true</failIfNoTests>
                         </configuration>
