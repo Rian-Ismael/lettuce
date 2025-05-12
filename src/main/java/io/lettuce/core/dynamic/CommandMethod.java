@@ -15,7 +15,7 @@ import io.lettuce.core.dynamic.support.ResolvableType;
  * @author Mark Paluch
  * @since 5.0
  */
-public interface CommandMethod {
+public interface CommandMethod extends ICommandMethod {
 
     /**
      * @return the method {@link Parameters}.
@@ -60,12 +60,6 @@ public interface CommandMethod {
      * @return {@code true} if the method uses asynchronous execution declaring {@link Future} as result type.
      */
     boolean isFutureExecution();
-
-    /**
-     * @return {@code true} if the method uses reactive execution declaring {@link org.reactivestreams.Publisher} as result
-     *         type.
-     */
-    boolean isReactiveExecution();
 
     /**
      * @return {@code true} if the method defines a {@link io.lettuce.core.dynamic.batch.CommandBatching} argument.
