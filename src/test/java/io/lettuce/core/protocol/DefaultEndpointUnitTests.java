@@ -413,7 +413,7 @@ class DefaultEndpointUnitTests {
         when(channel.isActive()).thenReturn(true);
         ConnectionTestUtil.getDisconnectedBuffer(sut)
                 .add(new ActivationCommand<>(new Command<>(CommandType.SELECT, new StatusOutput<>(StringCodec.UTF8))));
-        ConnectionTestUtil.getDisconnectedBuffer(sut).add(new LatencyMeteredCommand<>(
+        ConnectionTestUtil.getDisconnectedBuffer(sut).add(new RLatencyMeteredCommand<>(
                 new ActivationCommand<>(new Command<>(CommandType.SUBSCRIBE, new StatusOutput<>(StringCodec.UTF8)))));
 
         doAnswer(i -> {

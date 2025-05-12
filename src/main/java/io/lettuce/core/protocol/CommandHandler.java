@@ -575,7 +575,7 @@ public class CommandHandler extends ChannelDuplexHandler implements HasQueuedCom
             return command;
         }
 
-        LatencyMeteredCommand<?, ?, ?> latencyMeteredCommand = new LatencyMeteredCommand<>(command);
+        RLatencyMeteredCommand<?, ?, ?> latencyMeteredCommand = new RLatencyMeteredCommand<>(command);
         latencyMeteredCommand.firstResponse(-1);
         latencyMeteredCommand.sent(nanoTime());
 

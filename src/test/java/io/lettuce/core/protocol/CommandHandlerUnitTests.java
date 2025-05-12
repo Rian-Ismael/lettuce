@@ -367,7 +367,7 @@ class CommandHandlerUnitTests {
         sut.write(context, command, promise);
 
         verify(context).write(command, promise);
-        assertThat(stack).hasSize(1).allMatch(o -> o instanceof LatencyMeteredCommand);
+        assertThat(stack).hasSize(1).allMatch(o -> o instanceof RLatencyMeteredCommand);
     }
 
     @Test
@@ -463,7 +463,7 @@ class CommandHandlerUnitTests {
         verify(context).write(captor.capture(), any());
 
         assertThat(captor.getValue()).containsOnly(command2);
-        assertThat(stack).hasSize(1).allMatch(o -> o instanceof LatencyMeteredCommand)
+        assertThat(stack).hasSize(1).allMatch(o -> o instanceof RLatencyMeteredCommand)
                 .allMatch(o -> CommandWrapper.unwrap((RedisCommand) o) == command2);
     }
 
@@ -481,7 +481,7 @@ class CommandHandlerUnitTests {
 
         sut.channelRead(context, Unpooled.wrappedBuffer("*1\r\n+OK\r\n".getBytes()));
 
-        verify(latencyCollector).recordCommandLatency(any(), any(), any(LatencyMeteredCommand.class), gt(0L), gt(0L));
+        verify(latencyCollector).recordCommandLatency(any(), any(), any(RLatencyMeteredCommand.class), gt(0L), gt(0L));
 
         sut.channelUnregistered(context);
     }
