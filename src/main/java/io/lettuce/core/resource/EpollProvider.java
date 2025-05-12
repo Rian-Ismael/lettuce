@@ -48,7 +48,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
  * @author Yohei Ueki
  * @since 4.4
  */
-public class EpollProvider {
+public class EpollProvider extends EEpollProvider {
 
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(EpollProvider.class);
 
@@ -124,13 +124,6 @@ public class EpollProvider {
         bootstrap.option(EpollChannelOption.TCP_KEEPCNT, count);
         bootstrap.option(EpollChannelOption.TCP_KEEPIDLE, Math.toIntExact(idle.getSeconds()));
         bootstrap.option(EpollChannelOption.TCP_KEEPINTVL, Math.toIntExact(interval.getSeconds()));
-    }
-
-    /**
-     * Apply TcpUserTimeout options.
-     */
-    public static void applyTcpUserTimeout(Bootstrap bootstrap, Duration timeout) {
-        bootstrap.option(EpollChannelOption.TCP_USER_TIMEOUT, Math.toIntExact(timeout.toMillis()));
     }
 
     /**
