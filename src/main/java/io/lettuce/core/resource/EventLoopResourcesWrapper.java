@@ -13,7 +13,7 @@ import io.netty.util.concurrent.EventExecutorGroup;
  *
  * @author Mark Paluch
  */
-class EventLoopResourcesWrapper implements EventLoopResources {
+class EventLoopResourcesWrapper implements EventLoopResources, IEventLoopResourcesWrapper {
 
     private final EventLoopResources delegate;
 
