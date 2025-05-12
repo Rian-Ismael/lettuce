@@ -877,6 +877,7 @@
                             </addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
+                            <!--suppress UnresolvedMavenProperty -->
                             <Implementation-Version>
                                 ${project.version}/${git.commit.id.abbrev}
                             </Implementation-Version>
@@ -930,6 +931,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
+                        <!--suppress UnresolvedMavenProperty -->
                         <REDIS_STACK_VERSION>${env.REDIS_STACK_VERSION}</REDIS_STACK_VERSION>
                         <io.netty.eventLoopThreads>4</io.netty.eventLoopThreads>
                     </systemPropertyVariables>
