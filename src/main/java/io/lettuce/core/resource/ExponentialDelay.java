@@ -65,7 +65,16 @@ class ExponentialDelay extends Delay {
         if (attempt <= 0) { // safeguard against underflow
             delay = 0;
         } else if (powersOf == 2) {
-            delay = calculatePowerOfTwo(attempt);
+            long result;
+
+            if (attempt <= 0) { // safeguard against underflow
+                result = 0L;
+            } else if (attempt >= 63) { // safeguard against overflow in the bitshift operation
+                result = Long.MAX_VALUE - 1;
+            } else {
+                result = 1L << (attempt - 1);
+            }
+            delay = result;
         } else {
             delay = calculateAlternatePower(attempt);
         }
@@ -91,15 +100,5 @@ class ExponentialDelay extends Delay {
     }
 
     // fastpath with bitwise operator
-    protected static long calculatePowerOfTwo(long attempt) {
-
-        if (attempt <= 0) { // safeguard against underflow
-            return 0L;
-        } else if (attempt >= 63) { // safeguard against overflow in the bitshift operation
-            return Long.MAX_VALUE - 1;
-        } else {
-            return 1L << (attempt - 1);
-        }
-    }
 
 }

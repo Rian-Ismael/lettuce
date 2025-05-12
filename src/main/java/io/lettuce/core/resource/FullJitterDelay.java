@@ -57,7 +57,16 @@ class FullJitterDelay extends ExponentialDelay {
     public Duration createDelay(long attempt) {
 
         long upperTarget = targetTimeUnit.convert(upper.toNanos(), TimeUnit.NANOSECONDS);
-        long upperBase = base * calculatePowerOfTwo(attempt);
+        long result;
+
+        if (attempt <= 0) { // safeguard against underflow
+            result = 0L;
+        } else if (attempt >= 63) { // safeguard against overflow in the bitshift operation
+            result = Long.MAX_VALUE - 1;
+        } else {
+            result = 1L << (attempt - 1);
+        }
+        long upperBase = base * result;
         long temp = Math.min(upperTarget, 0 > upperBase ? upperTarget : upperBase);
         long delay = temp / 2 + randomBetween(0, temp / 2);
         return applyBounds(Duration.ofNanos(targetTimeUnit.toNanos(delay)));

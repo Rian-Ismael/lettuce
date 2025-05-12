@@ -51,7 +51,16 @@ class EqualJitterDelay extends ExponentialDelay {
 
     @Override
     public Duration createDelay(long attempt) {
-        long value = randomBetween(0, base * calculatePowerOfTwo(attempt));
+        long result;
+
+        if (attempt <= 0) { // safeguard against underflow
+            result = 0L;
+        } else if (attempt >= 63) { // safeguard against overflow in the bitshift operation
+            result = Long.MAX_VALUE - 1;
+        } else {
+            result = 1L << (attempt - 1);
+        }
+        long value = randomBetween(0, base * result);
         return applyBounds(Duration.ofNanos(targetTimeUnit.toNanos(value)));
     }
 
