@@ -78,26 +78,22 @@ public class StringMatchResultOutput<K, V> extends CommandOutput<K, V, StringMat
     public void complete(int depth) {
 
         if (depth == 2) {
-            matchedPositions.add(buildMatchedString(positions));
+
+            if (positions == null) {
+                throw new IllegalStateException("No matched positions");
+            }
+
+            int size = positions.size();
+            // not WITHMATCHLEN
+            long matchLen = size % 2 == 0 ? 0L : positions.get(size - 1);
+            matchedPositions.add(new MatchedPosition(new Position(positions.get(0), positions.get(1)),
+                    new Position(positions.get(2), positions.get(3)), matchLen));
             positions = null;
         }
 
         if (depth == 0) {
             output = new StringMatchResult(matchString, matchedPositions, len);
         }
-    }
-
-    private static MatchedPosition buildMatchedString(List<Long> positions) {
-
-        if (positions == null) {
-            throw new IllegalStateException("No matched positions");
-        }
-
-        int size = positions.size();
-        // not WITHMATCHLEN
-        long matchLen = size % 2 == 0 ? 0L : positions.get(size - 1);
-        return new MatchedPosition(new Position(positions.get(0), positions.get(1)),
-                new Position(positions.get(2), positions.get(3)), matchLen);
     }
 
 }
