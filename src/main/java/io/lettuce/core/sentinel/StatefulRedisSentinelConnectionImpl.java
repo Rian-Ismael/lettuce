@@ -44,7 +44,7 @@ import static io.lettuce.core.ClientOptions.DEFAULT_JSON_PARSER;
 public class StatefulRedisSentinelConnectionImpl<K, V> extends RedisChannelHandler<K, V>
         implements StatefulRedisSentinelConnection<K, V> {
 
-    protected final RedisCodec<K, V> codec;
+    protected final RedisCodec<K, V> redisCodec;
 
     protected final RedisSentinelCommands<K, V> sync;
 
@@ -78,7 +78,7 @@ public class StatefulRedisSentinelConnectionImpl<K, V> extends RedisChannelHandl
 
         super(writer, timeout);
 
-        this.codec = codec;
+        this.redisCodec = codec;
         this.async = new RedisSentinelAsyncCommandsImpl<>(this, codec);
         this.sync = syncHandler(async, RedisSentinelCommands.class);
         this.reactive = new RedisSentinelReactiveCommandsImpl<>(this, codec, parser);
