@@ -15,13 +15,6 @@ interface RedisCommandsMetadata {
     Collection<Method> getMethods();
 
     /**
-     * Returns the Redis Commands interface.
-     *
-     * @return
-     */
-    Class<?> getCommandsInterface();
-
-    /**
      * Lookup an interface annotation.
      *
      * @param annotationClass the annotation class.

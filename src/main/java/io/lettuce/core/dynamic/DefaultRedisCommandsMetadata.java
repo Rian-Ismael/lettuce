@@ -32,7 +32,6 @@ class DefaultRedisCommandsMetadata implements RedisCommandsMetadata {
         this.apiInterface = apiInterface;
     }
 
-    @Override
     public Class<?> getCommandsInterface() {
         return apiInterface;
     }
