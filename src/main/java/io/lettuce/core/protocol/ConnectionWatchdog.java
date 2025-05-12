@@ -21,6 +21,8 @@ package io.lettuce.core.protocol;
 
 import java.net.SocketAddress;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -434,6 +436,22 @@ public class ConnectionWatchdog extends ChannelInboundHandlerAdapter {
 
         String buffer = "[" + ChannelLogDescriptor.logDescriptor(channel) + ", last known addr=" + remoteAddress + ']';
         return logPrefix = buffer;
+    }
+
+    <K, V> Collection<RedisCommand<K, V, ?>> processActivationCommands(Collection<? extends RedisCommand<K, V, ?>> commands) {
+
+        Collection<RedisCommand<K, V, ?>> commandsToReturn = new ArrayList<>(commands.size());
+
+        for (RedisCommand<K, V, ?> command : commands) {
+
+            if (!ActivationCommand.isActivationCommand(command)) {
+                command = new ActivationCommand<>(command);
+            }
+
+            commandsToReturn.add(command);
+        }
+
+        return commandsToReturn;
     }
 
 }

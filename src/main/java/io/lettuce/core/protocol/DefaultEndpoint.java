@@ -236,7 +236,7 @@ public class DefaultEndpoint implements RedisChannelWriter, Endpoint, PushHandle
             sharedLock.incrementWriters();
 
             if (inActivation) {
-                commands = processActivationCommands(commands);
+                commands = connectionWatchdog.processActivationCommands(commands);
             }
 
             if (autoFlushCommands) {
@@ -267,23 +267,6 @@ public class DefaultEndpoint implements RedisChannelWriter, Endpoint, PushHandle
         }
 
         return command;
-    }
-
-    private <K, V> Collection<RedisCommand<K, V, ?>> processActivationCommands(
-            Collection<? extends RedisCommand<K, V, ?>> commands) {
-
-        Collection<RedisCommand<K, V, ?>> commandsToReturn = new ArrayList<>(commands.size());
-
-        for (RedisCommand<K, V, ?> command : commands) {
-
-            if (!ActivationCommand.isActivationCommand(command)) {
-                command = new ActivationCommand<>(command);
-            }
-
-            commandsToReturn.add(command);
-        }
-
-        return commandsToReturn;
     }
 
     private RedisException validateWrite(int commands) {
