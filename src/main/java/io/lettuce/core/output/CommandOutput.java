@@ -50,6 +50,8 @@ public abstract class CommandOutput<K, V, T> {
 
     protected String error;
 
+    protected boolean initialized;
+
     /**
      * Initialize a new instance that encodes and decodes keys and values using the supplied codec.
      *

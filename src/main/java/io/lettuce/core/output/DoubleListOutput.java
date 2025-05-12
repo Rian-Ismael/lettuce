@@ -38,8 +38,6 @@ import io.lettuce.core.codec.RedisCodec;
  */
 public class DoubleListOutput<K, V> extends CommandOutput<K, V, List<Double>> {
 
-    private boolean initialized;
-
     public DoubleListOutput(RedisCodec<K, V> codec) {
         super(codec, new ArrayList<>());
     }
