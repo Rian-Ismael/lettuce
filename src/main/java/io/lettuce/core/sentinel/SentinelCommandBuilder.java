@@ -22,7 +22,6 @@ package io.lettuce.core.sentinel;
 import static io.lettuce.core.protocol.CommandKeyword.*;
 import static io.lettuce.core.protocol.CommandType.*;
 
-import java.net.SocketAddress;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +33,6 @@ import io.lettuce.core.output.IntegerOutput;
 import io.lettuce.core.output.KeyOutput;
 import io.lettuce.core.output.ListOfMapsOutput;
 import io.lettuce.core.output.MapOutput;
-import io.lettuce.core.output.SocketAddressOutput;
 import io.lettuce.core.output.StatusOutput;
 import io.lettuce.core.protocol.BaseRedisCommandBuilder;
 import io.lettuce.core.protocol.Command;
@@ -50,11 +48,6 @@ class SentinelCommandBuilder<K, V> extends BaseRedisCommandBuilder<K, V> {
 
     public SentinelCommandBuilder(RedisCodec<K, V> codec) {
         super(codec);
-    }
-
-    public Command<K, V, SocketAddress> getMasterAddrByKey(K key) {
-        CommandArgs<K, V> args = new CommandArgs<>(codec).add("get-master-addr-by-name").addKey(key);
-        return createCommand(SENTINEL, new SocketAddressOutput<>(codec), args);
     }
 
     public Command<K, V, List<Map<K, V>>> masters() {

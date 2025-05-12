@@ -8,9 +8,11 @@ import io.lettuce.core.codec.RedisCodec;
 import io.lettuce.core.internal.LettuceAssert;
 import io.lettuce.core.output.*;
 
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 
 import static io.lettuce.core.protocol.CommandKeyword.LIMIT;
+import static io.lettuce.core.protocol.CommandType.SENTINEL;
 
 /**
  * Common utility methods shared by all implementations of the Redis command builder.
@@ -220,6 +222,11 @@ public class BaseRedisCommandBuilder<K, V> {
 
     protected static void notEmptyRanges(Range<?>[] ranges) {
         LettuceAssert.notEmpty(ranges, "Ranges " + MUST_NOT_BE_NULL);
+    }
+
+    public Command<K, V, SocketAddress> getMasterAddrByKey(K key) {
+        CommandArgs<K, V> args = new CommandArgs<>(codec).add("get-master-addr-by-name").addKey(key);
+        return createCommand(SENTINEL, new SocketAddressOutput<>(codec), args);
     }
 
 }
