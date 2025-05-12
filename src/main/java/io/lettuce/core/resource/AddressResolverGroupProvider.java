@@ -22,6 +22,8 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
  */
 class AddressResolverGroupProvider extends EAddressResolverGroupProvider {
 
+    protected static final InternalLogger logger = InternalLoggerFactory.getInstance(AddressResolverGroupProvider.class);
+
     private static final AddressResolverGroup<?> ADDRESS_RESOLVER_GROUP;
 
     static {
